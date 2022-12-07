@@ -7,7 +7,8 @@ export const styles = StyleSheet.create({
   },
 
   inputAndButtonContainer: {
-    flexDirection: "row"
+    flexDirection: "row",
+    justifyContent: "center",
   },
 
   input: {
@@ -29,6 +30,24 @@ export const styles = StyleSheet.create({
   },
   buttonImage: {
     width: 16
+  },
+
+  tasksContainer: {
+    alignItems: "center",
+    marginTop: 32
+  },
+
+  tasksHeaderCounter: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: 327,
+
+  },
+  tasksCreated: {
+    color: "#4EA8DE"
+  },
+  tasksCompleted: {
+    color: "#8284FA"
   }
 
 
