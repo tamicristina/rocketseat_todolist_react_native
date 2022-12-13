@@ -3,6 +3,7 @@ import { TextInput, TouchableOpacity, View, Text } from "react-native";
 import { Header } from "../components/Header";
 import { styles } from "./styles";
 import { Image } from "react-native";
+import { Line } from "../components/Line";
 
 export default function Home() {
   return (
@@ -21,12 +22,14 @@ export default function Home() {
           />
         </TouchableOpacity>
       </View>
+
       <View style={styles.tasksContainer}>
         <View style={styles.tasksHeaderCounter}>
           <Text style={styles.tasksCreated}>Criadas</Text>
           <Text style={styles.tasksCompleted}>Concluídas</Text>
         </View>
       </View>
+      <Line />
     </View>
   );
 }

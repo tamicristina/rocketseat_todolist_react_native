@@ -1,4 +1,4 @@
-import { Button, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
 
   input: {
     backgroundColor: "#262626",
-    height: 56,
+    height: 54,
     width: 271,
     borderRadius: 6,
     marginLeft: 24,
@@ -29,27 +29,23 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttonImage: {
-    width: 16
+    width: 16,
   },
 
   tasksContainer: {
     alignItems: "center",
-    marginTop: 32
+    marginTop: 32,
   },
 
   tasksHeaderCounter: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: 327,
-
   },
   tasksCreated: {
-    color: "#4EA8DE"
+    color: "#4EA8DE",
   },
   tasksCompleted: {
-    color: "#8284FA"
-  }
-
-
-
-})
+    color: "#8284FA",
+  },
+});
