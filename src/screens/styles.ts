@@ -44,8 +44,10 @@ export const styles = StyleSheet.create({
   },
   tasksCreated: {
     color: "#4EA8DE",
+    fontWeight: "bold",
   },
   tasksCompleted: {
     color: "#8284FA",
+    fontWeight: "bold",
   },
 });
