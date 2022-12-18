@@ -17,7 +17,10 @@ export default function Home() {
   function logTask() {
     setRegisteredTask((prevState) => [...prevState, taskName]);
   }
-  console.log(registeredTask);
+
+  const handleTask = () => {
+    registeredTask.map((task) => <Task taskName={task} />);
+  };
 
   return (
     <View style={styles.container}>
@@ -52,7 +55,6 @@ export default function Home() {
           </View>
         </View>
         <Line />
-        <Task />
         {/* <TaskBook /> */}
       </View>
     </View>
