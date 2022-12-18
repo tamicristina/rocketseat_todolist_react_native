@@ -13,6 +13,8 @@ export const styles = StyleSheet.create({
 
   input: {
     backgroundColor: "#262626",
+    color: "#808080",
+    fontSize: 16,
     height: 54,
     width: 271,
     borderRadius: 6,
@@ -42,12 +44,30 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: 327,
   },
+  tasksAndCounterContainer: {
+    flexDirection: "row",
+  },
   tasksCreated: {
     color: "#4EA8DE",
+    fontWeight: "bold",
+    paddingRight: 8,
+  },
+
+  tasksCounterContainer: {
+    backgroundColor: "#333333",
+    width: 27,
+    height: 21,
+    borderRadius: 99,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  tasksCounter: {
+    color: "#D9D9D9",
     fontWeight: "bold",
   },
   tasksCompleted: {
     color: "#8284FA",
     fontWeight: "bold",
+    paddingRight: 8,
   },
 });
