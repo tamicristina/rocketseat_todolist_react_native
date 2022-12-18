@@ -5,10 +5,20 @@ import { styles } from "./styles";
 import { Image } from "react-native";
 import { Line } from "../components/Line";
 import { TaskBook } from "../components/TaskBook";
+import { Task } from "../components/Task";
 
 export default function Home() {
-  const [createdTasks, setCreatedTasks] = useState(0);
-  const [completedTasks, setcompletedTasks] = useState(0);
+  const [createdTasksCounter, setCreatedTasksCounter] = useState(0);
+  const [completedTasksCounter, setcompletedTasksCounter] = useState(0);
+
+  const [registeredTask, setRegisteredTask] = useState<string[]>([]);
+  const [taskName, setTaskName] = useState("");
+
+  function logTask() {
+    setRegisteredTask((prevState) => [...prevState, taskName]);
+  }
+  console.log(registeredTask);
+
   return (
     <View style={styles.container}>
       <Header />
@@ -17,22 +27,33 @@ export default function Home() {
           style={styles.input}
           placeholder="Adicione uma nova tarefa"
           placeholderTextColor="#808080"
+          onChangeText={setTaskName}
         />
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={logTask}>
           <Image
             style={styles.buttonImage}
             source={require("../../assets/button.png")}
           />
         </TouchableOpacity>
       </View>
-
       <View style={styles.tasksContainer}>
         <View style={styles.tasksHeaderCounter}>
-          <Text style={styles.tasksCreated}>Criadas</Text>
-          <Text style={styles.tasksCompleted}>Concluídas</Text>
+          <View style={styles.tasksAndCounterContainer}>
+            <Text style={styles.tasksCreated}>Criadas</Text>
+            <View style={styles.tasksCounterContainer}>
+              <Text style={styles.tasksCounter}>{createdTasksCounter}</Text>
+            </View>
+          </View>
+          <View style={styles.tasksAndCounterContainer}>
+            <Text style={styles.tasksCompleted}>Concluídas</Text>
+            <View style={styles.tasksCounterContainer}>
+              <Text style={styles.tasksCounter}>{completedTasksCounter}</Text>
+            </View>
+          </View>
         </View>
         <Line />
-        <TaskBook />
+        <Task />
+        {/* <TaskBook /> */}
       </View>
     </View>
   );
