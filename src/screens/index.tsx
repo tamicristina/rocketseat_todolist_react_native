@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { TextInput, TouchableOpacity, View, Text } from "react-native";
 import { Header } from "../components/Header";
 import { styles } from "./styles";
@@ -10,17 +10,24 @@ import { Task } from "../components/Task";
 export default function Home() {
   const [createdTasksCounter, setCreatedTasksCounter] = useState(0);
   const [completedTasksCounter, setcompletedTasksCounter] = useState(0);
-
   const [registeredTask, setRegisteredTask] = useState<string[]>([]);
   const [taskName, setTaskName] = useState("");
 
   function logTask() {
     setRegisteredTask((prevState) => [...prevState, taskName]);
+    setTaskName("");
   }
 
-  const handleTask = () => {
-    registeredTask.map((task) => <Task taskName={task} />);
-  };
+  const createTasks =
+    registeredTask.length <= 0 ? (
+      <TaskBook />
+    ) : (
+      registeredTask.map((task) => <Task key={task} taskName={task} />)
+    );
+
+  useMemo(() => {
+    setCreatedTasksCounter(registeredTask.length);
+  }, [registeredTask]);
 
   return (
     <View style={styles.container}>
@@ -31,6 +38,7 @@ export default function Home() {
           placeholder="Adicione uma nova tarefa"
           placeholderTextColor="#808080"
           onChangeText={setTaskName}
+          value={taskName}
         />
         <TouchableOpacity style={styles.buttonContainer} onPress={logTask}>
           <Image
@@ -55,7 +63,7 @@ export default function Home() {
           </View>
         </View>
         <Line />
-        {/* <TaskBook /> */}
+        {createTasks}
       </View>
     </View>
   );

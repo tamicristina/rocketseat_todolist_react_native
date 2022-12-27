@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   taskContainer: {
-    alignItems: "center",
     justifyContent: "center",
     height: 64,
     width: 327,
@@ -13,5 +12,6 @@ export const styles = StyleSheet.create({
   taskText: {
     color: "#F2F2F2",
     fontSize: 14,
+    paddingLeft: 8,
   },
 });
