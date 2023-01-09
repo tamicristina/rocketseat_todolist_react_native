@@ -1,5 +1,11 @@
 import React, { useMemo, useState } from "react";
-import { TextInput, TouchableOpacity, View, Text } from "react-native";
+import {
+  TextInput,
+  TouchableOpacity,
+  View,
+  Text,
+  FlatList,
+} from "react-native";
 import { Header } from "../components/Header";
 import { styles } from "./styles";
 import { Image } from "react-native";
@@ -13,47 +19,22 @@ export default function Home() {
   const [completedTasksCounter, setcompletedTasksCounter] = useState(0);
   const [registeredTask, setRegisteredTask] = useState<string[]>([]);
   const [taskName, setTaskName] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(
+    registeredTask && registeredTask.map((task) => false)
+  );
 
   function logTask() {
     setRegisteredTask((prevState) => [...prevState, taskName]);
     setTaskName("");
   }
 
-  const handleChange = () => {
-    if (isChecked === false) {
-      setIsChecked(true);
-      setcompletedTasksCounter(completedTasksCounter + 1);
-    }
-
-    if (isChecked === true) {
-      setIsChecked(false);
-      setcompletedTasksCounter(completedTasksCounter - 1);
-    }
-  };
-  const createTasks =
-    registeredTask.length <= 0 ? (
-      <TaskBook />
-    ) : (
-      registeredTask.map((task) => (
-        <View style={styles.taskContainer} key={task}>
-          <Checkbox
-            value={isChecked}
-            onValueChange={handleChange}
-            color={isChecked ? "#5E60CE" : undefined}
-            style={styles.taskCheckBox}
-          />
-          <View style={styles.taskTextContainer}>
-            <Text style={[styles.taskText, isChecked && styles.textWithRisk]}>
-              {task}
-            </Text>
-          </View>
-          <View style={styles.trashIconContainer}>
-            <Feather name="trash-2" size={20} color="#808080" />
-          </View>
-        </View>
-      ))
+  const handleChange = (idx: any) => {
+    setIsChecked(
+      isChecked.map((item, index) => (index === idx ? !item : item))
     );
+  };
+
+  console.log(isChecked);
 
   useMemo(() => {
     setCreatedTasksCounter(registeredTask.length);
@@ -93,7 +74,32 @@ export default function Home() {
           </View>
         </View>
         <Line />
-        {createTasks}
+        <FlatList
+          data={registeredTask}
+          keyExtractor={(item) => item}
+          renderItem={({ item, index }) => (
+            <View style={styles.taskContainer} key={item}>
+              <Checkbox
+                value={!isChecked}
+                onValueChange={(value) => handleChange(index)}
+                color={isChecked ? "#5E60CE" : undefined}
+                style={styles.taskCheckBox}
+              />
+              <View style={styles.taskTextContainer}>
+                <Text
+                  style={[styles.taskText, isChecked && styles.textWithRisk]}
+                >
+                  {item}
+                </Text>
+              </View>
+              <View style={styles.trashIconContainer}>
+                <Feather name="trash-2" size={20} color="#808080" />
+              </View>
+            </View>
+          )}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={() => <TaskBook />}
+        />
       </View>
     </View>
   );
