@@ -105,6 +105,6 @@ export const styles = StyleSheet.create({
   },
 
   trashIconContainer: {
-    padding: 9,
+    paddingRight: 12,
   },
 });
