@@ -5,6 +5,7 @@ import {
   View,
   Text,
   FlatList,
+  Alert,
 } from "react-native";
 import { Header } from "../components/Header";
 import { styles } from "./styles";
@@ -52,6 +53,22 @@ export default function Home() {
     const newData = [...checkBoxData];
     newData[index].checked = !newData[index].checked;
     setCheckBoxData(newData);
+  };
+
+  const deleteTask = (taskToDelete: string) => {
+    Alert.alert("Remover", `Remover tarefa ${taskToDelete}?`, [
+      {
+        text: "Sim",
+        onPress: () =>
+          setRegisteredTask((prevState) =>
+            registeredTask.filter((task) => task !== taskToDelete)
+          ),
+      },
+      {
+        text: "Não",
+        style: "cancel",
+      },
+    ]);
   };
 
   return (
@@ -109,9 +126,12 @@ export default function Home() {
                   {item}
                 </Text>
               </View>
-              <View style={styles.trashIconContainer}>
+              <TouchableOpacity
+                style={styles.trashIconContainer}
+                onPress={() => deleteTask(item)}
+              >
                 <Feather name="trash-2" size={20} color="#808080" />
-              </View>
+              </TouchableOpacity>
             </View>
           )}
           showsVerticalScrollIndicator={false}
