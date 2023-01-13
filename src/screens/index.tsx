@@ -58,8 +58,11 @@ export default function Home() {
 
   useEffect(() => {
     setcompletedTasksCounter(
-      () => checkBoxData.filter((data, index) => data.checked === true).length
+      () =>
+        checkBoxData.filter((data) => data.checked === true && data.task === "")
+          .length
     );
+    console.log(checkBoxData.length);
   }, [checkBoxData]);
 
   const deleteTask = (taskToDelete: string) => {
