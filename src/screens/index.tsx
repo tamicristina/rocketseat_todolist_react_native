@@ -51,16 +51,23 @@ export default function Home() {
 
   const changeCheckboxFlag = (index: number) => {
     const newData = [...checkBoxData];
+
     newData[index].checked = !newData[index].checked;
     setCheckBoxData(newData);
   };
+
+  useEffect(() => {
+    setcompletedTasksCounter(
+      () => checkBoxData.filter((data, index) => data.checked === true).length
+    );
+  }, [checkBoxData]);
 
   const deleteTask = (taskToDelete: string) => {
     Alert.alert("Remover", `Remover tarefa ${taskToDelete}?`, [
       {
         text: "Sim",
         onPress: () =>
-          setRegisteredTask((prevState) =>
+          setRegisteredTask(() =>
             registeredTask.filter((task) => task !== taskToDelete)
           ),
       },
