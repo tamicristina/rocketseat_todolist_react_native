@@ -20,11 +20,10 @@ export default function Home() {
   const [createdTasksCounter, setCreatedTasksCounter] = useState(0);
   const [completedTasksCounter, setcompletedTasksCounter] = useState(0);
   const [taskName, setTaskName] = useState("");
-  const [registeredTask, setRegisteredTask] = useState<string[]>([]);
-  const [checkBoxData, setCheckBoxData] = useState<ICheckBox[]>([]);
+  const [registeredTask, setRegisteredTask] = useState<ICheckBox[]>([]);
 
   function logTask() {
-    setCheckBoxData((prevState) => [
+    setRegisteredTask((prevState) => [
       ...prevState,
       {
         task: taskName,
@@ -36,29 +35,29 @@ export default function Home() {
   }
 
   useMemo(() => {
-    setCreatedTasksCounter(checkBoxData.length);
-  }, [checkBoxData]);
+    setCreatedTasksCounter(registeredTask.length);
+  }, [registeredTask]);
 
   const changeCheckboxFlag = (index: number) => {
-    const newData = [...checkBoxData];
+    const newData = [...registeredTask];
 
     newData[index].checked = !newData[index].checked;
-    setCheckBoxData(newData);
+    setRegisteredTask(newData);
   };
 
   useEffect(() => {
     setcompletedTasksCounter(
-      checkBoxData.filter((data) => data.checked === true).length
+      registeredTask.filter((data) => data.checked === true).length
     );
-  }, [checkBoxData]);
+  }, [registeredTask]);
 
   const deleteTask = (taskToDelete: string) => {
     Alert.alert("Remover", `Remover tarefa ${taskToDelete}?`, [
       {
         text: "Sim",
         onPress: () =>
-          setCheckBoxData(() =>
-            checkBoxData.filter((task) => task.task !== taskToDelete)
+          setRegisteredTask(() =>
+            registeredTask.filter((task) => task.task !== taskToDelete)
           ),
       },
       {
@@ -103,12 +102,12 @@ export default function Home() {
         </View>
         <Line />
         <FlatList
-          data={checkBoxData}
+          data={registeredTask}
           keyExtractor={(item) => item.task}
           renderItem={({ item, index }) => (
             <View style={styles.taskContainer} key={item.task}>
               <Checkbox
-                value={checkBoxData[index].checked}
+                value={registeredTask[index].checked}
                 onValueChange={() => changeCheckboxFlag(index)}
                 color={false ? "#5E60CE" : undefined}
                 style={styles.taskCheckBox}
@@ -117,7 +116,7 @@ export default function Home() {
                 <Text
                   style={[
                     styles.taskText,
-                    checkBoxData[index].checked && styles.textWithRisk,
+                    registeredTask[index].checked && styles.textWithRisk,
                   ]}
                 >
                   {item.task}
