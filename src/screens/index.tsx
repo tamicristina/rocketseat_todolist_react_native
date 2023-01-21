@@ -21,33 +21,23 @@ export default function Home() {
   const [completedTasksCounter, setcompletedTasksCounter] = useState(0);
   const [taskName, setTaskName] = useState("");
   const [registeredTask, setRegisteredTask] = useState<string[]>([]);
-  const [checkBoxData, setCheckBoxData] = useState<ICheckBox[]>([
-    {
-      task: "",
-      checked: false,
-    },
-  ]);
+  const [checkBoxData, setCheckBoxData] = useState<ICheckBox[]>([]);
 
   function logTask() {
-    setRegisteredTask((prevState) => [...prevState, taskName]);
+    setCheckBoxData((prevState) => [
+      ...prevState,
+      {
+        task: taskName,
+        checked: false,
+      },
+    ]);
+
     setTaskName("");
   }
 
   useMemo(() => {
-    setCreatedTasksCounter(registeredTask.length);
-  }, [registeredTask]);
-
-  useMemo(() => {
-    registeredTask.map((task) => {
-      setCheckBoxData((prevState) => [
-        ...prevState,
-        {
-          task: task,
-          checked: false,
-        },
-      ]);
-    });
-  }, [registeredTask]);
+    setCreatedTasksCounter(checkBoxData.length);
+  }, [checkBoxData]);
 
   const changeCheckboxFlag = (index: number) => {
     const newData = [...checkBoxData];
@@ -58,11 +48,8 @@ export default function Home() {
 
   useEffect(() => {
     setcompletedTasksCounter(
-      () =>
-        checkBoxData.filter((data) => data.checked === true && data.task === "")
-          .length
+      checkBoxData.filter((data) => data.checked === true).length
     );
-    console.log(checkBoxData.length);
   }, [checkBoxData]);
 
   const deleteTask = (taskToDelete: string) => {
@@ -70,8 +57,8 @@ export default function Home() {
       {
         text: "Sim",
         onPress: () =>
-          setRegisteredTask(() =>
-            registeredTask.filter((task) => task !== taskToDelete)
+          setCheckBoxData(() =>
+            checkBoxData.filter((task) => task.task !== taskToDelete)
           ),
       },
       {
@@ -116,10 +103,10 @@ export default function Home() {
         </View>
         <Line />
         <FlatList
-          data={registeredTask}
-          keyExtractor={(item) => item}
+          data={checkBoxData}
+          keyExtractor={(item) => item.task}
           renderItem={({ item, index }) => (
-            <View style={styles.taskContainer} key={item}>
+            <View style={styles.taskContainer} key={item.task}>
               <Checkbox
                 value={checkBoxData[index].checked}
                 onValueChange={() => changeCheckboxFlag(index)}
@@ -133,12 +120,12 @@ export default function Home() {
                     checkBoxData[index].checked && styles.textWithRisk,
                   ]}
                 >
-                  {item}
+                  {item.task}
                 </Text>
               </View>
               <TouchableOpacity
                 style={styles.trashIconContainer}
-                onPress={() => deleteTask(item)}
+                onPress={() => deleteTask(item.task)}
               >
                 <Feather name="trash-2" size={20} color="#808080" />
               </TouchableOpacity>
