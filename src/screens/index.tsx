@@ -15,6 +15,7 @@ import { TaskBook } from "../components/TaskBook";
 import Checkbox from "expo-checkbox";
 import { Feather } from "@expo/vector-icons";
 import { ICheckBox } from "../interfaces";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Home() {
   const [createdTasksCounter, setCreatedTasksCounter] = useState(0);
@@ -70,7 +71,12 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <Header />
-      <View style={styles.inputAndButtonContainer}>
+
+      <LinearGradient
+        colors={["#1A1A1A", "#0D0D0D"]}
+        style={styles.inputAndButtonContainer}
+        locations={[0.38, 0.35]}
+      >
         <TextInput
           style={styles.input}
           placeholder="Adicione uma nova tarefa"
@@ -84,7 +90,7 @@ export default function Home() {
             source={require("../../assets/button.png")}
           />
         </TouchableOpacity>
-      </View>
+      </LinearGradient>
       <View style={styles.tasksContainer}>
         <View style={styles.tasksHeaderCounter}>
           <View style={styles.tasksAndCounterContainer}>

@@ -9,6 +9,9 @@ export const styles = StyleSheet.create({
   inputAndButtonContainer: {
     flexDirection: "row",
     justifyContent: "center",
+    backgroundColor: "red",
+    borderTopWidth: 8,
+    height: 100,
   },
 
   input: {
